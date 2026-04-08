@@ -191,7 +191,7 @@ For issues or questions, please create an issue on the GitHub repository.
 
 ## Author
 
-Created by [Your Name]
+Created by Janidu induwara  
 
 ---
 
