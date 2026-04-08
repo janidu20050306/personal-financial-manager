@@ -1,0 +1,66 @@
+{% extends "home/base.html" %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .text{
+        text-align: center;
+        color: green;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .ok{
+        text-align: center;
+        color: rgb(22, 192, 33);
+        font-family: 'Times New Roman', Times, serif;
+        font-style: italic;
+    }
+    .ok:hover{
+        color: rgb(232, 200, 200);
+    }
+</style>
+
+<div class="container mt-5 col-6">
+    <form action="" class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text">Add Expenses</h2>
+        <div class="mb-3">
+            <label for="name" class="form-label">Expense Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+        </div>
+        <button type="submit" class="btn btn-primary ok">Submit</button>
+    </form>
+
+    <div class="mt-5">
+        <a class="btn btn-primary ok" href="{% url 'pdf' %}">Total Expenses</a>
+        <a class="btn btn-danger ok" href="{% url 'logout' %}">Logout</a>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">S.no</th>
+                    <th scope="col">Expense Name</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ expense.name }}</td>
+                    <td>{{ expense.price }}</td>
+                    <td>
+                        <a href="{% url 'update' expense.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete' expense.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
